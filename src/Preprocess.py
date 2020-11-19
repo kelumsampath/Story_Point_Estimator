@@ -8,7 +8,7 @@ with open('./../dataset/spring.csv',  encoding="utf8") as csv_file:
     assignee_column=0
     comment_column=[]
     storypoint_column=0
-    filtered_data=[]
+    filtered_dataset=[]
     for data_row in csv_reader:
         if line_count == 0:
             column_count=0
@@ -24,13 +24,14 @@ with open('./../dataset/spring.csv',  encoding="utf8") as csv_file:
                 elif column_name == "Comment":
                     comment_column.append(column_count)
                 column_count +=1
-        filtered_data.append([data_row[summary_column]] +[data_row[description_column]] +[data_row[assignee_column]]+[data_row[storypoint_column]]+ [data_row[i] for i in comment_column])
+        filtered_dataset.append([data_row[summary_column]] +[data_row[description_column]] +[data_row[assignee_column]]+[data_row[storypoint_column]]+ [data_row[i] for i in comment_column])
         line_count += 1
-    for row in filtered_data:
+    for row in filtered_dataset:
         print(row)
     print(f'Processed {line_count} lines.')
 
-fields=['first','second','third']
-with open('test.csv', 'a',newline='') as f:
+with open('filtered_dataset.csv', 'w',newline='',encoding="utf-8") as f:
     writer = csv.writer(f)
-    writer.writerow(fields)
+    for row in filtered_dataset:
+        writer.writerow(row)
+
