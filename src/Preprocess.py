@@ -1,5 +1,10 @@
 import csv
-import numpy as np
+import nltk
+from nltk.stem import PorterStemmer
+from nltk.tokenize import sent_tokenize, word_tokenize
+from nltk.corpus import stopwords
+
+ps = PorterStemmer()
 
 with open('./../dataset/spring.csv',  encoding="utf8") as csv_file:
     csv_reader = csv.reader(csv_file, delimiter=',')
@@ -74,3 +79,36 @@ with open('input_processed_dataset.csv', 'w',newline='',encoding="utf-8") as f:
 
     for input_data_row in input_processed_dataset:
         writer.writerow(input_data_row)
+
+    #combile title and description
+with open('input_set1.csv', 'w',newline='',encoding="utf-8") as f:
+    writer = csv.writer(f)
+    input_dataset1=[["Summary & Description","Story point"]]
+
+    for row_data in input_processed_dataset:
+        input_dataset1.append([row_data[0]+" "+row_data[1],row_data[4]])
+
+    for input_set1 in input_dataset1:
+        #print(input_set1)
+        writer.writerow(input_set1)
+
+    #tokenize text (title+description)
+    words_list = word_tokenize(input_dataset1[2][0])
+
+    #stop words in english lanugage
+    stop_words = set(stopwords.words('english'))
+
+    #remove stop words from words list
+    filtered_sentence = [w for w in words_list if not w in stop_words]
+
+    filtered_sentence = []
+
+    for w in words_list:
+        if w not in stop_words:
+            filtered_sentence.append(w)
+
+    #print(words_list)
+    #print(filtered_sentence)
+
+    for w in filtered_sentence:
+        print(ps.stem(w))
