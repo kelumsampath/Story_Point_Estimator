@@ -1,4 +1,4 @@
-Bug description,Story point
+Bug text,Story point
 "Job definitions request limits 20 results by default As a user, I'm trying to get all job definitions, but the first 20 alone are returned.
 
 Job samples:

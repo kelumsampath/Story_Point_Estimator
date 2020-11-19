@@ -8,8 +8,8 @@ def read_csv_file(path):
             data_array.append(data_row)
         return data_array
 
-def write_csv_file(path, data_array):
-    with open(path, 'w', newline='', encoding="utf-8") as f:
+def write_csv_file(path, data_array,access_type):
+    with open(path, access_type, newline='', encoding="utf-8") as f:
         writer = csv.writer(f)
         for row in data_array:
             writer.writerow(row)
@@ -73,12 +73,9 @@ def refactor_dataset(filtered_dataset):
     return input_processed_dataset
 
 #extract summary&description as bug description and storypoint
-def get_dataset1(input_dataset):
-    input_dataset1 = [["Bug description", "Story point"]]
-    del input_dataset[0]
-    for row_data in input_dataset:
-        input_dataset1.append([row_data[0] + " " + row_data[1], row_data[4]])
-    return input_dataset1
+def get_dataset1(bug):
+    return [bug[0] + " " + bug[1], bug[4]]
+
 
 
 ###main###
@@ -88,14 +85,25 @@ dataset = read_csv_file('./../dataset/spring.csv')
 #get only required fields from dataset
 filtered_dataset = filter_required_columns(dataset)
 #write filtered dataset into new csv
-write_csv_file('./csv/1_filtered_dataser.csv',filtered_dataset)
+write_csv_file('./csv/1_filtered_dataser.csv',filtered_dataset,'w')
 #refactor input dataset as for different inputs
 input_dataset = refactor_dataset(filtered_dataset)
 #write dataset in input format
-write_csv_file('./csv/2_input_dataset.csv', input_dataset)
-#get textual data from dataset
-input_dataset1 = get_dataset1(input_dataset)
-#write input dataset1
-write_csv_file('./csv/3_input_dataset1.csv', input_dataset1)
+write_csv_file('./csv/2_input_dataset.csv', input_dataset,'w')
+
+#write title bar of input dataset1
+write_csv_file('./csv/3_input_dataset1.csv', [["Bug text", "Story point"]],'w')
+
+#delete title bar from input_dataset
+del input_dataset[0]
+
+#consider only one bug at once
+for bug in input_dataset:
+    #get textual data from a bug-> bug set1=Bug text,Story point
+    bug_set1 = get_dataset1(bug)
+    #write bug set1 in 3_input_dataset1.csv
+    write_csv_file('./csv/3_input_dataset1.csv', [bug_set1], 'a')
+
+    
 
 
