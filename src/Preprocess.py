@@ -1,4 +1,5 @@
 import csv
+import numpy as np
 
 with open('./../dataset/spring.csv',  encoding="utf8") as csv_file:
     csv_reader = csv.reader(csv_file, delimiter=',')
@@ -59,9 +60,17 @@ with open('input_processed_dataset.csv', 'w',newline='',encoding="utf-8") as f:
             input_processed_dataset.append(single_entry)
         row_count +=1
 
-    ##print input processed datatset
-    for input_data_row in input_processed_dataset:
-        print(input_data_row)
+    #remove garbage values
+    input_data_row_count=0
+    temp_input_processed_dataset=input_processed_dataset
+    for input_data_row in temp_input_processed_dataset:
+        if input_data_row[2]==0 and input_data_row[3]==0 and input_data_row[4]=='':
+            del input_processed_dataset[input_data_row_count]
+        input_data_row_count +=1
+
+    # #print input processed datatset
+    # for input_data_row in input_processed_dataset:
+    #     print(input_data_row)
 
     for input_data_row in input_processed_dataset:
         writer.writerow(input_data_row)
