@@ -93,7 +93,9 @@ def get_word_root_format(bug_text):
     word_stem_list=[]
     for w in filtered_sentence:
         word_stem_list.append(ps.stem(w))
-    return word_stem_list
+    #convert list into string
+    root_form_string = ' '.join([str(elem) for elem in word_stem_list])
+    return root_form_string
 
 ###main###
 
@@ -114,6 +116,8 @@ write_csv_file('./csv/3_input_dataset1.csv', [["Bug text", "Story point"]],'w')
 #delete title bar from input_dataset
 del input_dataset[0]
 
+word_stem_string=[["Bug text root form", "Story point"]]
+
 #consider only one bug at once
 for bug in input_dataset:
     #get textual data from a bug-> bug set1=Bug text,Story point
@@ -122,8 +126,11 @@ for bug in input_dataset:
     write_csv_file('./csv/3_input_dataset1.csv', [bug_set1], 'a')
 
     #get word list in root format (stem)
-    word_stem_list=get_word_root_format(bug_set1[0])
-    print(word_stem_list)
+    word_stem_string.append([get_word_root_format(bug_set1[0]),bug_set1[1]])
+
+#write title bar of input dataset1 root form
+write_csv_file('./csv/4_input_dataset1_rootform.csv', word_stem_string,'w')
+
 
 
 
