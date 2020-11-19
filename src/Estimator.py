@@ -1,4 +1,13 @@
 import csv
+import nltk
+from nltk.stem import PorterStemmer
+from nltk.tokenize import sent_tokenize, word_tokenize
+from nltk.corpus import stopwords
+
+ps = PorterStemmer()
+
+#stop words in english lanugage
+stop_words = set(stopwords.words('english'))
 
 def read_csv_file(path):
     with open(path, encoding="utf8") as csv_file:
@@ -76,7 +85,15 @@ def refactor_dataset(filtered_dataset):
 def get_dataset1(bug):
     return [bug[0] + " " + bug[1], bug[4]]
 
-
+def get_word_root_format(bug_text):
+    # tokenize text
+    words_list = word_tokenize(bug_text)
+    # remove stop words from words list
+    filtered_sentence = [w for w in words_list if not w in stop_words]
+    word_stem_list=[]
+    for w in filtered_sentence:
+        word_stem_list.append(ps.stem(w))
+    return word_stem_list
 
 ###main###
 
@@ -104,6 +121,11 @@ for bug in input_dataset:
     #write bug set1 in 3_input_dataset1.csv
     write_csv_file('./csv/3_input_dataset1.csv', [bug_set1], 'a')
 
-    
+    #get word list in root format (stem)
+    word_stem_list=get_word_root_format(bug_set1[0])
+    print(word_stem_list)
+
+
+
 
 
