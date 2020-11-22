@@ -141,13 +141,19 @@ write_csv_file('./csv/4_input_dataset1_rootform.csv', word_stem_string,'w')
 
 
 bug_text_list=[]
+story_point_list=[]
 for bug in word_stem_string:
     bug_text_list.append(bug[0])
+    story_point_list.append(bug[1])
 
 #genarate and write tfidf values to corpus
 term_matrix=create_document_term_matrix(bug_text_list)
-term_matrix.to_csv (r'./csv/5_tfidf_for_corpus.csv', index = False, header=True)
 
+#adding storypoint column to matrix
+term_matrix["story_point"]=story_point_list
+
+#remove first row( title values) and save as csv
+term_matrix.drop(term_matrix.index[0]).to_csv (r'./csv/5_tfidf_for_corpus.csv', index = False, header=True)
 
 
 

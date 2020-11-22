@@ -6,7 +6,7 @@ from sklearn.ensemble import RandomForestRegressor
 from sklearn import metrics
 
 #dataset = pd.read_csv('../dataset/forrand/petrol_consumption.csv')
-dataset = pd.read_csv('./csv/test.csv')
+dataset = pd.read_csv('./csv/5_tfidf_for_corpus.csv')
 
 print(len(dataset.columns))
 
