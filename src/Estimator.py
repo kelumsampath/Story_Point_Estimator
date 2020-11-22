@@ -3,6 +3,8 @@ import nltk
 from nltk.stem import PorterStemmer
 from nltk.tokenize import sent_tokenize, word_tokenize
 from nltk.corpus import stopwords
+from pandas import DataFrame
+from sklearn.feature_extraction.text import TfidfVectorizer
 
 ps = PorterStemmer()
 
@@ -97,6 +99,11 @@ def get_word_root_format(bug_text):
     root_form_string = ' '.join([str(elem) for elem in word_stem_list])
     return root_form_string
 
+def create_document_term_matrix(bug_text_list):
+    tfidf_vectorizer = TfidfVectorizer()
+    doc_term_matrix = tfidf_vectorizer.fit_transform(bug_text_list)
+    return DataFrame(doc_term_matrix.toarray(),columns=tfidf_vectorizer.get_feature_names())
+
 ###main###
 
 #read data set from csv
@@ -130,6 +137,14 @@ for bug in input_dataset:
 
 #write title bar of input dataset1 root form
 write_csv_file('./csv/4_input_dataset1_rootform.csv', word_stem_string,'w')
+
+
+bug_text_list=[]
+for bug in word_stem_string:
+    bug_text_list.append(bug[0])
+
+term_matrix=create_document_term_matrix(bug_text_list)
+print(term_matrix)
 
 
 
