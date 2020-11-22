@@ -1,5 +1,6 @@
 import csv
 import nltk
+import pandas as pd
 from nltk.stem import PorterStemmer
 from nltk.tokenize import sent_tokenize, word_tokenize
 from nltk.corpus import stopwords
@@ -102,7 +103,7 @@ def get_word_root_format(bug_text):
 def create_document_term_matrix(bug_text_list):
     tfidf_vectorizer = TfidfVectorizer()
     doc_term_matrix = tfidf_vectorizer.fit_transform(bug_text_list)
-    return DataFrame(doc_term_matrix.toarray(),columns=tfidf_vectorizer.get_feature_names())
+    return pd.DataFrame(doc_term_matrix.toarray(),columns=tfidf_vectorizer.get_feature_names())
 
 ###main###
 
@@ -143,8 +144,11 @@ bug_text_list=[]
 for bug in word_stem_string:
     bug_text_list.append(bug[0])
 
+#genarate and write tfidf values to corpus
 term_matrix=create_document_term_matrix(bug_text_list)
-print(term_matrix)
+term_matrix.to_csv (r'./csv/5_tfidf_for_corpus.csv', index = False, header=True)
+
+
 
 
 
