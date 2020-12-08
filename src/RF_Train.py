@@ -44,16 +44,18 @@ print('Mean Absolute Error:', metrics.mean_absolute_error(y_test, y_pred))
 print('Mean Squared Error:', metrics.mean_squared_error(y_test, y_pred))
 print('Root Mean Squared Error:', np.sqrt(metrics.mean_squared_error(y_test, y_pred)))
 
-##read and estimate for new dataset
-dataset = pd.read_csv('./csv/5_tfidf_for_corpus.csv')
+###estimates story point for the dataset (used to train)
 
-Existing_text_features=sc.fit_transform(dataset.iloc[:, 0:number_of_columns-1].values)
-
-text_score = regressorModel.predict(Existing_text_features)
-
-#add new colums to write new values
-dataset["test_score"]=text_score
-dataset["test_score_round"]=np.rint(text_score)
-
-write_csv_file('./csv/6_estimated_new_text_score.csv',dataset.to_numpy(),'w')
+# ##read and estimate for new dataset
+# dataset = pd.read_csv('./csv/5_tfidf_for_corpus.csv')
+#
+# Existing_text_features=sc.fit_transform(dataset.iloc[:, 0:number_of_columns-1].values)
+#
+# text_score = regressorModel.predict(Existing_text_features)
+#
+# #add new colums to write new values
+# dataset["test_score"]=text_score
+# dataset["test_score_round"]=np.rint(text_score)
+#
+# write_csv_file('./csv/6_estimated_new_text_score.csv',dataset.to_numpy(),'w')
 

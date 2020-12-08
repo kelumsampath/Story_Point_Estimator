@@ -1,10 +1,8 @@
 import csv
-import nltk
 import pandas as pd
 from nltk.stem import PorterStemmer
-from nltk.tokenize import sent_tokenize, word_tokenize
+from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
-from pandas import DataFrame
 from sklearn.feature_extraction.text import TfidfVectorizer
 
 ps = PorterStemmer()
