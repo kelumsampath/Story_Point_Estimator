@@ -1,0 +1,504 @@
+Summary,Issue key,Issue id,Issue Type,Status,Project key,Project name,Project type,Project lead,Project description,Project url,Priority,Resolution,Assignee,Reporter,Creator,Created,Updated,Last Viewed,Resolved,Affects Version/s,Affects Version/s,Fix Version/s,Fix Version/s,Component/s,Component/s,Component/s,Due Date,Votes,Labels,Labels,Labels,Description,Environment,Original Estimate,Remaining Estimate,Time Spent,Work Ratio,Σ Original Estimate,Σ Remaining Estimate,Σ Time Spent,Security Level,Outward issue link (Depend),Outward issue link (Relate),Outward issue link (Relate),Attachment,Attachment,Custom field (Acceptance Criteria),Custom field (Actual Story Points),Custom field (Days since last comment),Custom field (Epic Link),Custom field (First Response Date),Custom field (Global Rank),Custom field (Last commented by a User),Custom field (Last updater),Custom field (Out of Scope),Custom field (Platform),Custom field (Pull Request URL),Custom field (Rank),Custom field (Rank (Obsolete)),Custom field (Ranking),Custom field (Reference URL),Custom field (Spring Forum Reference),Sprint,Sprint,Sprint,Custom field (Virtual Machine),Comment,Comment,Comment,Comment,Comment,Comment,Comment,Comment,Comment,Comment,Comment,Comment,Comment
+Job definitions request limits 20 results by default,XD-3707,66740,Bug,To Do,XD,Spring XD,software,mark.pollack,"This JIRA project is closed.
+
+Spring XD is a unified, distributed, and extensible system for data ingestion, real time analytics, batch processing, and data export. The project's goal is to simplify the development of big data applications.",https://github.com/spring-projects/spring-xd,Minor,,hillert,sabby,sabby,11/15/2015 21:52,11/29/2015 19:24,10/29/2020 16:25,,,,,,,,,,0,,,,"As a user, I'm trying to get all job definitions, but the first 20 alone are returned.
+
+Job samples:
+{code}
+job create aaa --definition ""hello"" --deploy
+job create bbb --definition ""hello"" --deploy
+job create ccc --definition ""hello"" --deploy
+job create ddd --definition ""hello"" --deploy
+job create eee --definition ""hello"" --deploy
+job create fff --definition ""hello"" --deploy
+job create ggg --definition ""hello"" --deploy
+job create hhh --definition ""hello"" --deploy
+job create iii --definition ""hello"" --deploy
+job create jjj --definition ""hello"" --deploy
+job create kkk --definition ""hello"" --deploy
+job create lll --definition ""hello"" --deploy
+job create mmm --definition ""hello"" --deploy
+job create nnn --definition ""hello"" --deploy
+job create ooo --definition ""hello"" --deploy
+job create ppp --definition ""hello"" --deploy
+job create qqq --definition ""hello"" --deploy
+job create rrr --definition ""hello"" --deploy
+job create sss --definition ""hello"" --deploy
+job create ttt --definition ""hello"" --deploy
+job create uuu --definition ""hello"" --deploy
+job create vvv --definition ""hello"" --deploy
+job create www --definition ""hello"" --deploy
+job create xxx --definition ""hello"" --deploy
+job create yyy --definition ""hello"" --deploy
+job create zzz --definition ""hello"" --deploy
+job create aaa1 --definition ""hello"" --deploy
+job create bbb1 --definition ""hello"" --deploy
+job create ccc1 --definition ""hello"" --deploy
+job create ddd1 --definition ""hello"" --deploy
+job create eee1 --definition ""hello"" --deploy
+{code}
+
+Request:
+{{http://localhost:9393/jobs/definitions.json}} - returns top 20; the other experiments with page size of either 0 or -1 still brings the top 20.",,,,,,,,,,,,,,,,,156297600,XD-3477,,9.22E+18,TRUE,sabby(sabby),,,,0|i000ie:wrn0qzzzzzz000008u3ygfi03wig26fr01zz,9.22E+18,9.22E+18,,,,,,,,,,,,,,,,,,,
+Counter sink does not accept SpEL expressions,XD-3706,66693,Bug,Done,XD,Spring XD,software,mark.pollack,"This JIRA project is closed.
+
+Spring XD is a unified, distributed, and extensible system for data ingestion, real time analytics, batch processing, and data export. The project's goal is to simplify the development of big data applications.",https://github.com/spring-projects/spring-xd,Minor,Deferred,eric.bottard,sabby,sabby,11/12/2015 17:17,11/16/2015 16:13,10/29/2020 16:49,11/14/2015 16:01,,,,,,,,,0,,,,"As a user, I'm trying to use {{counter}} sink with {SpEL}} expression, but I'm not able to use them in combination. It [throws|https://github.com/spring-cloud/spring-cloud-stream-modules/blob/master/counter-sink/src/main/java/org/springframework/cloud/stream/module/metrics/CounterSinkProperties.java#L77] {{exactly one of 'name' and 'nameExpression' must be set}} as error message.
+
+",,,,,,,,,,,,,,,,,156470400,XD-3285,,9.22E+18,TRUE,sabby(sabby),,,,0|hzzybe:,9.22E+18,9.22E+18,,,,,,,14/Nov/15 4:01 PM;sabby;Moved to GH. ,,,,,,,,,,,,
+Execution list page includes child jobs in pagination scope,XD-3698,66640,Bug,Done,XD,Spring XD,software,mark.pollack,"This JIRA project is closed.
+
+Spring XD is a unified, distributed, and extensible system for data ingestion, real time analytics, batch processing, and data export. The project's goal is to simplify the development of big data applications.",https://github.com/spring-projects/spring-xd,Minor,Complete,hillert,sabby,sabby,11/9/2015 20:58,11/13/2015 14:59,10/29/2020 16:49,11/13/2015 14:59,,,,,,,,,0,,,,"As a user, I created a composed job with over 10 child jobs in the workflow; I expected to see 'a' job in the execution list page without any pagination, but instead I noticed empty pagination to skip to next page.",,,,,,,,,,,,,,,,1,156816000,XD-3477,,9.22E+18,TRUE,grenfro(grenfro),,,https://github.com/spring-projects/spring-xd/pull/1855,0|i08vyv:,9.22E+18,9.22E+18,,,Sprint 61,,,,,,,,,,,,,,,,
+Ensure Job definitions are escaped in UI,XD-3691,66603,Bug,Done,XD,Spring XD,software,mark.pollack,"This JIRA project is closed.
+
+Spring XD is a unified, distributed, and extensible system for data ingestion, real time analytics, batch processing, and data export. The project's goal is to simplify the development of big data applications.",https://github.com/spring-projects/spring-xd,Minor,Complete,hillert,grenfro,grenfro,11/6/2015 2:14,11/17/2015 16:15,10/29/2020 16:26,11/17/2015 16:15,1.3 RC1,,1.3 GA,,Batch,,,,0,,,,"If using the definition <aaa || bbb> where the definition starts with a ""<"" and ends with a "">"" the definition for the composed job does not appear on the definition page.",,,,,,,,,,,,,06/Nov/15 2:13 AM;grenfro;Screen Shot 2015-11-05 at 9.13.11 PM.png;https://jira.spring.io/secure/attachment/23209/Screen+Shot+2015-11-05+at+9.13.11+PM.png,06/Nov/15 2:14 AM;grenfro;Screen Shot 2015-11-05 at 9.14.00 PM.png;https://jira.spring.io/secure/attachment/23208/Screen+Shot+2015-11-05+at+9.14.00+PM.png,,1,157161600,XD-3477,,9.22E+18,TRUE,hillert(hillert),,,https://github.com/spring-projects/spring-xd-admin-ui-client/pull/11,0|hzzyb6:,9.22E+18,9.22E+18,,,Sprint 62,,,,,,,,,,,,,,,,
+log4j/log4j-over-slf4j logging issue,XD-3686,66579,Bug,Done,XD,Spring XD,software,mark.pollack,"This JIRA project is closed.
+
+Spring XD is a unified, distributed, and extensible system for data ingestion, real time analytics, batch processing, and data export. The project's goal is to simplify the development of big data applications.",https://github.com/spring-projects/spring-xd,Minor,Invalid,,jvalkeal,jvalkeal,11/4/2015 13:44,11/4/2015 15:25,10/29/2020 16:26,11/4/2015 15:25,,,,,,,,,0,,,,"I got below error when executing modules on yarn and it was written in appmaster stderr output.
+{code}
+Exception in thread ""Thread-2"" java.lang.NoClassDefFoundError: org/apache/log4j/spi/ThrowableInformation
+        at org.apache.log4j.spi.LoggingEvent.<init>(LoggingEvent.java:165)
+        at org.apache.log4j.Category.forcedLog(Category.java:391)
+        at org.apache.log4j.Category.log(Category.java:856)
+        at org.slf4j.impl.Log4jLoggerAdapter.log(Log4jLoggerAdapter.java:595)
+        at org.apache.commons.logging.impl.SLF4JLocationAwareLog.warn(SLF4JLocationAwareLog.java:192)
+        at org.springframework.context.support.AbstractApplicationContext.doClose(AbstractApplicationContext.java:969)
+        at org.springframework.boot.context.embedded.EmbeddedWebApplicationContext.doClose(EmbeddedWebApplicationContext.java:150)
+        at org.springframework.context.support.AbstractApplicationContext$1.run(AbstractApplicationContext.java:893)
+{code}
+
+`LoggingEvent` is found from both `log4j-over-slf4j-1.7.12.jar` and `log4j-1.2.17.jar`. I suppose it depends on which one is used first to load this class.
+
+Here's what we have in admin and appmaster jar files(spring-cloud-dataflow-yarn-build-tests is my local new sub-project to run tests on a hadoop minicluster):
+{code}
+unzip -l target/spring-cloud-dataflow-yarn-build-tests/spring-cloud-dataflow-yarn-appmaster-1.0.0.BUILD-SNAPSHOT.jar|grep jar|grep -i log
+    62050  2013-05-16 22:04   lib/commons-logging-1.1.3.jar
+   489884  2012-05-06 13:24   lib/log4j-1.2.17.jar
+     8860  2015-03-26 21:56   lib/slf4j-log4j12-1.7.12.jar
+     2234  2015-09-03 16:30   lib/spring-boot-starter-logging-1.3.0.M5.jar
+    24567  2015-03-26 21:57   lib/log4j-over-slf4j-1.7.12.jar
+    40824  2015-08-18 12:39   lib/tomcat-embed-logging-juli-8.0.26.jar
+    66802  2015-05-28 09:49   lib/jboss-logging-3.3.0.Final.jar
+{code}
+
+{code}
+unzip -l spring-cloud-dataflow-admin/target/spring-cloud-dataflow-admin-1.0.0.BUILD-SNAPSHOT.jar |grep jar|grep -i log
+    62050  2013-05-16 22:04   lib/commons-logging-1.1.3.jar
+   489884  2012-05-06 13:24   lib/log4j-1.2.17.jar
+    40824  2015-08-18 12:39   lib/tomcat-embed-logging-juli-8.0.26.jar
+    66802  2015-05-28 09:49   lib/jboss-logging-3.3.0.Final.jar
+     2234  2015-09-03 16:30   lib/spring-boot-starter-logging-1.3.0.M5.jar
+   280928  2015-03-24 12:06   lib/logback-classic-1.1.3.jar
+   455041  2015-03-24 12:05   lib/logback-core-1.1.3.jar
+    24567  2015-03-26 21:57   lib/log4j-over-slf4j-1.7.12.jar
+{code}
+
+Error went away when I removed `log4j-over-slf4j-1.7.12.jar` from maven deps for yarn appmaster jar. I suppose we have same issue with admin server.
+",,,,,,,,,,,,,,,,,157334400,XD-3199,,9.22E+18,TRUE,jvalkeal(jvalkeal),,,,0|i08vl3:,9.22E+18,9.22E+18,,,,,,,"04/Nov/15 3:07 PM;jvalkeal;Right, error came back. I'm not sure if that was a root cause. I'm not feeling lucky...",04/Nov/15 3:24 PM;jvalkeal;looks like this might have been a yarn minicluster testing issue which doesn't properly kill containers when test cluster is closed.,,,,,,,,,,,
+Job Definitions page fails to display definitions if page ,XD-3685,66570,Bug,Done,XD,Spring XD,software,mark.pollack,"This JIRA project is closed.
+
+Spring XD is a unified, distributed, and extensible system for data ingestion, real time analytics, batch processing, and data export. The project's goal is to simplify the development of big data applications.",https://github.com/spring-projects/spring-xd,Minor,Complete,hillert,grenfro,grenfro,11/2/2015 20:54,11/5/2015 14:44,10/29/2020 16:49,11/5/2015 14:44,1.3 RC1,,1.3 GA,,Batch,,,,0,,,,"In this scenario we created 30 jobs that can be used for a composed job.  
+if the composed job uses jobs in its composition that are not present on the first page of the of the result set the following exception is thrown.  
+
+{noformat}
+2015-11-02T14:47:17-0500 1.3.0.SNAP ERROR qtp1587928736-26 rest.RestControllerAdvice - Caught exception while handling a request
+java.lang.IllegalStateException: Not all instances were looked at: fff
+	at org.springframework.xd.dirt.rest.XDController.enhanceWithDeployments(XDController.java:244) ~[spring-xd-dirt-1.3.0.BUILD-SNAPSHOT.jar:1.3.0.BUILD-SNAPSHOT]
+	at org.springframework.xd.dirt.rest.XDController.listValues(XDController.java:209) ~[spring-xd-dirt-1.3.0.BUILD-SNAPSHOT.jar:1.3.0.BUILD-SNAPSHOT]
+	at org.springframework.xd.dirt.rest.JobsController.list(JobsController.java:128) ~[spring-xd-dirt-1.3.0.BUILD-SNAPSHOT.jar:1.3.0.BUILD-SNAPSHOT]
+	at sun.reflect.GeneratedMethodAccessor133.invoke(Unknown Source) ~[na:na]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:1.7.0_67]
+	at java.lang.reflect.Method.invoke(Method.java:606) ~[na:1.7.0_67]
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:221) ~[spring-web-4.2.2.RELEASE.jar:4.2.2.RELEASE]
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:137) ~[spring-web-4.2.2.RELEASE.jar:4.2.2.RELEASE]
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:110) ~[spring-webmvc-4.2.2.RELEASE.jar:4.2.2.RELEASE]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:806) ~[spring-webmvc-4.2.2.RELEASE.jar:4.2.2.RELEASE]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:729) ~[spring-webmvc-4.2.2.RELEASE.jar:4.2.2.RELEASE]
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:85) ~[spring-webmvc-4.2.2.RELEASE.jar:4.2.2.RELEASE]
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:959) ~[spring-webmvc-4.2.2.RELEASE.jar:4.2.2.RELEASE]
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:893) ~[spring-webmvc-4.2.2.RELEASE.jar:4.2.2.RELEASE]
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:970) [spring-webmvc-4.2.2.RELEASE.jar:4.2.2.RELEASE]
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:861) [spring-webmvc-4.2.2.RELEASE.jar:4.2.2.RELEASE]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:735) [javax.servlet-3.0.0.v201112011016.jar:na]
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:846) [spring-webmvc-4.2.2.RELEASE.jar:4.2.2.RELEASE]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:848) [javax.servlet-3.0.0.v201112011016.jar:na]
+	at org.eclipse.jetty.servlet.ServletHolder.handle(ServletHolder.java:684) [jetty-servlet-8.1.14.v20131031.jar:8.1.14.v20131031]
+	at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1496) [jetty-servlet-8.1.14.v20131031.jar:8.1.14.v20131031]
+	at org.springframework.boot.actuate.autoconfigure.EndpointWebMvcAutoConfiguration$ApplicationContextHeaderFilter.doFilterInternal(EndpointWebMvcAutoConfiguration.java:291) [spring-boot-actuator-1.2.3.RELEASE.jar:1.2.3.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) [spring-web-4.2.2.RELEASE.jar:4.2.2.RELEASE]
+	at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1467) [jetty-servlet-8.1.14.v20131031.jar:8.1.14.v20131031]
+	at org.springframework.web.filter.HiddenHttpMethodFilter.doFilterInternal(HiddenHttpMethodFilter.java:77) [spring-web-4.2.2.RELEASE.jar:4.2.2.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) [spring-web-4.2.2.RELEASE.jar:4.2.2.RELEASE]
+	at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1467) [jetty-servlet-8.1.14.v20131031.jar:8.1.14.v20131031]
+	at org.springframework.web.filter.HttpPutFormContentFilter.doFilterInternal(HttpPutFormContentFilter.java:87) [spring-web-4.2.2.RELEASE.jar:4.2.2.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) [spring-web-4.2.2.RELEASE.jar:4.2.2.RELEASE]
+	at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1467) [jetty-servlet-8.1.14.v20131031.jar:8.1.14.v20131031]
+	at org.springframework.boot.actuate.trace.WebRequestTraceFilter.doFilterInternal(WebRequestTraceFilter.java:102) [spring-boot-actuator-1.2.3.RELEASE.jar:1.2.3.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) [spring-web-4.2.2.RELEASE.jar:4.2.2.RELEASE]
+	at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1467) [jetty-servlet-8.1.14.v20131031.jar:8.1.14.v20131031]
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:207) [spring-security-web-4.0.2.RELEASE.jar:4.0.2.RELEASE]
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:176) [spring-security-web-4.0.2.RELEASE.jar:4.0.2.RELEASE]
+	at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1467) [jetty-servlet-8.1.14.v20131031.jar:8.1.14.v20131031]
+	at org.springframework.boot.actuate.autoconfigure.MetricFilterAutoConfiguration$MetricsFilter.doFilterInternal(MetricFilterAutoConfiguration.java:90) [spring-boot-actuator-1.2.3.RELEASE.jar:1.2.3.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) [spring-web-4.2.2.RELEASE.jar:4.2.2.RELEASE]
+	at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1467) [jetty-servlet-8.1.14.v20131031.jar:8.1.14.v20131031]
+	at org.eclipse.jetty.servlet.ServletHandler.doHandle(ServletHandler.java:499) [jetty-servlet-8.1.14.v20131031.jar:8.1.14.v20131031]
+	at org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:137) [jetty-server-8.1.14.v20131031.jar:8.1.14.v20131031]
+	at org.eclipse.jetty.security.SecurityHandler.handle(SecurityHandler.java:557) [jetty-security-8.1.14.v20131031.jar:8.1.14.v20131031]
+	at org.eclipse.jetty.server.session.SessionHandler.doHandle(SessionHandler.java:231) [jetty-server-8.1.14.v20131031.jar:8.1.14.v20131031]
+	at org.eclipse.jetty.server.handler.ContextHandler.doHandle(ContextHandler.java:1086) [jetty-server-8.1.14.v20131031.jar:8.1.14.v20131031]
+	at org.eclipse.jetty.servlet.ServletHandler.doScope(ServletHandler.java:428) [jetty-servlet-8.1.14.v20131031.jar:8.1.14.v20131031]
+	at org.eclipse.jetty.server.session.SessionHandler.doScope(SessionHandler.java:193) [jetty-server-8.1.14.v20131031.jar:8.1.14.v20131031]
+	at org.eclipse.jetty.server.handler.ContextHandler.doScope(ContextHandler.java:1020) [jetty-server-8.1.14.v20131031.jar:8.1.14.v20131031]
+	at org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:135) [jetty-server-8.1.14.v20131031.jar:8.1.14.v20131031]
+	at org.eclipse.jetty.server.handler.HandlerWrapper.handle(HandlerWrapper.java:116) [jetty-server-8.1.14.v20131031.jar:8.1.14.v20131031]
+	at org.eclipse.jetty.server.Server.handle(Server.java:370) [jetty-server-8.1.14.v20131031.jar:8.1.14.v20131031]
+	at org.eclipse.jetty.server.AbstractHttpConnection.handleRequest(AbstractHttpConnection.java:494) [jetty-server-8.1.14.v20131031.jar:8.1.14.v20131031]
+	at org.eclipse.jetty.server.AbstractHttpConnection.headerComplete(AbstractHttpConnection.java:971) [jetty-server-8.1.14.v20131031.jar:8.1.14.v20131031]
+	at org.eclipse.jetty.server.AbstractHttpConnection$RequestHandler.headerComplete(AbstractHttpConnection.java:1033) [jetty-server-8.1.14.v20131031.jar:8.1.14.v20131031]
+	at org.eclipse.jetty.http.HttpParser.parseNext(HttpParser.java:644) [jetty-http-8.1.14.v20131031.jar:8.1.14.v20131031]
+	at org.eclipse.jetty.http.HttpParser.parseAvailable(HttpParser.java:235) [jetty-http-8.1.14.v20131031.jar:8.1.14.v20131031]
+	at org.eclipse.jetty.server.AsyncHttpConnection.handle(AsyncHttpConnection.java:82) [jetty-server-8.1.14.v20131031.jar:8.1.14.v20131031]
+	at org.eclipse.jetty.io.nio.SelectChannelEndPoint.handle(SelectChannelEndPoint.java:667) [jetty-io-8.1.14.v20131031.jar:8.1.14.v20131031]
+	at org.eclipse.jetty.io.nio.SelectChannelEndPoint$1.run(SelectChannelEndPoint.java:52) [jetty-io-8.1.14.v20131031.jar:8.1.14.v20131031]
+	at org.eclipse.jetty.util.thread.QueuedThreadPool.runJob(QueuedThreadPool.java:608) [jetty-util-8.1.14.v20131031.jar:8.1.14.v20131031]
+	at org.eclipse.jetty.util.thread.QueuedThreadPool$3.run(QueuedThreadPool.java:543) [jetty-util-8.1.14.v20131031.jar:8.1.14.v20131031]
+	at java.lang.Thread.run(Thread.java:745) [na:1.7.0_67]
+{noformat}",,,,,,,,,,,,,,,,2,157334400,XD-3477,24:45.3,9.22E+18,TRUE,hillert(hillert),,,https://github.com/spring-projects/spring-xd/pull/1842,0|i08vj3:,9.22E+18,9.22E+18,,,Sprint 61,,,,"04/Nov/15 4:24 PM;hillert;Verified.
+
+*How to Reproduce*
+
+Create a list of jobs using the following script.
+
+{code}
+job create aaa --definition ""myjob"" --deploy
+job create bbb --definition ""myjob"" --deploy
+job create ccc --definition ""myjob"" --deploy
+job create ddd --definition ""myjob"" --deploy
+job create eee --definition ""myjob"" --deploy
+job create fff --definition ""myjob"" --deploy
+job create ggg --definition ""myjob"" --deploy
+job create hhh --definition ""myjob"" --deploy
+job create iii --definition ""myjob"" --deploy
+job create jjj --definition ""myjob"" --deploy
+job create kkk --definition ""myjob"" --deploy
+job create lll --definition ""myjob"" --deploy
+job create mmm --definition ""myjob"" --deploy
+job create nnn --definition ""myjob"" --deploy
+job create ooo --definition ""myjob"" --deploy
+job create ppp --definition ""myjob"" --deploy
+job create qqq --definition ""myjob"" --deploy
+job create rrr --definition ""myjob"" --deploy
+job create sss --definition ""myjob"" --deploy
+job create ttt --definition ""myjob"" --deploy
+job create uuu --definition ""myjob"" --deploy
+job create vvv --definition ""myjob"" --deploy
+job create www --definition ""myjob"" --deploy
+job create xxx --definition ""myjob"" --deploy
+job create yyy --definition ""myjob"" --deploy
+job create zzz --definition ""myjob"" --deploy
+job create aaa1 --definition ""myjob"" --deploy
+job create bbb1 --definition ""myjob"" --deploy
+job create ccc1 --definition ""myjob"" --deploy
+job create ddd1 --definition ""myjob"" --deploy
+job create eee1 --definition ""myjob"" --deploy
+{code}
+
+Create a *composed job*:
+
+{code}
+job create foo --definition ""< ( aaa || bbb || ccc ) & ddd & eee & fff >"" --deploy
+{code}
+
+Go to Admin UI
+
+http://localhost:9393/admin-ui/#/jobs/definitions
+
+Page stays blank. You should see a stacktrace in the Admin server's log, such as:
+
+{code}
+java.lang.IllegalStateException: Not all instances were looked at: eee1
+{code}",,,,,,,,,,,,
+Job composition fails for large transitions,XD-3684,66569,Bug,Done,XD,Spring XD,software,mark.pollack,"This JIRA project is closed.
+
+Spring XD is a unified, distributed, and extensible system for data ingestion, real time analytics, batch processing, and data export. The project's goal is to simplify the development of big data applications.",https://github.com/spring-projects/spring-xd,Minor,Complete,mminella,sabby,sabby,11/2/2015 19:30,11/13/2015 22:36,10/29/2020 16:49,11/13/2015 22:36,,,1.3 GA,,,,,,0,,,,"As a user, I'm trying to create a composed job with >20 steps/transitions using Rabbit as the message bus and it doesn't complete successfully.",,,,,,,,,,,,,05/Nov/15 10:03 PM;grenfro;container-86046.log;https://jira.spring.io/secure/attachment/23207/container-86046.log,05/Nov/15 10:04 PM;grenfro;container-86056.log;https://jira.spring.io/secure/attachment/23206/container-86056.log,,5,157075200,XD-3477,15:29.1,9.22E+18,TRUE,grenfro(grenfro),,,https://github.com/spring-projects/spring-xd/pull/1858,0|i08viv:,9.22E+18,9.22E+18,,,Sprint 61,,,,"02/Nov/15 8:15 PM;grenfro;[Deployment]
+* 1 admin 2 containers 
+* Transport: rabbit 
+* Environment:  Macbook pro.
+* Datasource string:
+{noformat}
+jdbc:hsqldb:hsql://${hsql.server.host:localhost}:${hsql.server.port:9101}/${hsql.server.dbname:xdjob};sql.enforce_strict_size=true;hsqldb.tx=mvcc
+{noformat}
+* batch isolationLevel :  ISOLATION_READ_COMMITTED
+* 
+When running the following script 
+{noformat}
+< ( aaa || bbb || ccc ) & ddd & eee & fff > || ggg || hhh || <(iii || jjj) & kkk > || <lll | BOO = mmm | '*' = $END & nnn & ooo > || ppp || qqq || rrr || sss || ttt || uuu || vvv || <xxx & yyy > || zzz
+{noformat}
+one of the steps in the orchestrated job will throw: 
+{noformat}
+Parameter name: xd_parent_execution_id; isIdentifying: false; type: STRING; value: 63
+2015-11-02T14:50:17-0500 1.3.0.SNAP ERROR xdbus.job:eee-1 tasklet.TaskletStep - JobRepository failure forcing rollback
+org.springframework.dao.ConcurrencyFailureException: PreparedStatementCallback; SQL [UPDATE BATCH_STEP_EXECUTION set START_TIME = ?, END_TIME = ?, STATUS = ?, COMMIT_COUNT = ?, READ_COUNT = ?, FILTER_COUNT = ?, WRITE_COUNT = ?, EXIT_CODE = ?, EXIT_MESSAGE = ?, VERSION = ?, READ_SKIP_COUNT = ?, PROCESS_SKIP_COUNT = ?, WRITE_SKIP_COUNT = ?, ROLLBACK_COUNT = ?, LAST_UPDATED = ? where STEP_EXECUTION_ID = ? and VERSION = ?]; transaction rollback: serialization failure; nested exception is java.sql.SQLTransactionRollbackException: transaction rollback: serialization failure
+	at org.springframework.jdbc.support.SQLExceptionSubclassTranslator.doTranslate(SQLExceptionSubclassTranslator.java:71) ~[spring-jdbc-4.2.2.RELEASE.jar:4.2.2.RELEASE]
+	at org.springframework.jdbc.support.AbstractFallbackSQLExceptionTranslator.translate(AbstractFallbackSQLExceptionTranslator.java:73) ~[spring-jdbc-4.2.2.RELEASE.jar:4.2.2.RELEASE]
+	at org.springframework.jdbc.support.AbstractFallbackSQLExceptionTranslator.translate(AbstractFallbackSQLExceptionTranslator.java:81) ~[spring-jdbc-4.2.2.RELEASE.jar:4.2.2.RELEASE]
+	at org.springframework.jdbc.core.JdbcTemplate.execute(JdbcTemplate.java:645) ~[spring-jdbc-4.2.2.RELEASE.jar:4.2.2.RELEASE]
+	at org.springframework.jdbc.core.JdbcTemplate.update(JdbcTemplate.java:866) ~[spring-jdbc-4.2.2.RELEASE.jar:4.2.2.RELEASE]
+	at org.springframework.jdbc.core.JdbcTemplate.update(JdbcTemplate.java:927) ~[spring-jdbc-4.2.2.RELEASE.jar:4.2.2.RELEASE]
+	at org.springframework.jdbc.core.JdbcTemplate.update(JdbcTemplate.java:932) ~[spring-jdbc-4.2.2.RELEASE.jar:4.2.2.RELEASE]
+	at org.springframework.batch.core.repository.dao.JdbcStepExecutionDao.updateStepExecution(JdbcStepExecutionDao.java:244) ~[spring-batch-core-3.0.5.RELEASE.jar:3.0.5.RELEASE]
+	at org.springframework.batch.core.repository.support.SimpleJobRepository.update(SimpleJobRepository.java:191) ~[spring-batch-core-3.0.5.RELEASE.jar:3.0.5.RELEASE]
+	at sun.reflect.GeneratedMethodAccessor142.invoke(Unknown Source) ~[na:na]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:1.8.0_20]
+	at java.lang.reflect.Method.invoke(Method.java:483) ~[na:1.8.0_20]
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:302) [spring-aop-4.2.2.RELEASE.jar:4.2.2.RELEASE]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:190) [spring-aop-4.2.2.RELEASE.jar:4.2.2.RELEASE]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:157) [spring-aop-4.2.2.RELEASE.jar:4.2.2.RELEASE]
+	at org.springframework.transaction.interceptor.TransactionInterceptor$1.proceedWithInvocation(TransactionInterceptor.java:99) ~[spring-tx-4.2.2.RELEASE.jar:4.2.2.RELEASE]
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:281) ~[spring-tx-4.2.2.RELEASE.jar:4.2.2.RELEASE]
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:96) ~[spring-tx-4.2.2.RELEASE.jar:4.2.2.RELEASE]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179) [spring-aop-4.2.2.RELEASE.jar:4.2.2.RELEASE]
+	at org.springframework.aop.framework.JdkDynamicAopProxy.invoke(JdkDynamicAopProxy.java:207) [spring-aop-4.2.2.RELEASE.jar:4.2.2.RELEASE]
+	at com.sun.proxy.$Proxy89.update(Unknown Source) ~[na:na]
+	at sun.reflect.GeneratedMethodAccessor142.invoke(Unknown Source) ~[na:na]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:1.8.0_20]
+	at java.lang.reflect.Method.invoke(Method.java:483) ~[na:1.8.0_20]
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:302) [spring-aop-4.2.2.RELEASE.jar:4.2.2.RELEASE]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:190) [spring-aop-4.2.2.RELEASE.jar:4.2.2.RELEASE]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:157) [spring-aop-4.2.2.RELEASE.jar:4.2.2.RELEASE]
+	at org.springframework.batch.core.configuration.annotation.SimpleBatchConfiguration$PassthruAdvice.invoke(SimpleBatchConfiguration.java:127) [spring-batch-core-3.0.5.RELEASE.jar:3.0.5.RELEASE]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179) [spring-aop-4.2.2.RELEASE.jar:4.2.2.RELEASE]
+	at org.springframework.aop.framework.JdkDynamicAopProxy.invoke(JdkDynamicAopProxy.java:207) [spring-aop-4.2.2.RELEASE.jar:4.2.2.RELEASE]
+	at com.sun.proxy.$Proxy51.update(Unknown Source) ~[na:na]
+	at org.springframework.batch.core.step.tasklet.TaskletStep$ChunkTransactionCallback.doInTransaction(TaskletStep.java:456) [spring-batch-core-3.0.5.RELEASE.jar:3.0.5.RELEASE]
+	at org.springframework.batch.core.step.tasklet.TaskletStep$ChunkTransactionCallback.doInTransaction(TaskletStep.java:330) [spring-batch-core-3.0.5.RELEASE.jar:3.0.5.RELEASE]
+	at org.springframework.transaction.support.TransactionTemplate.execute(TransactionTemplate.java:133) [spring-tx-4.2.2.RELEASE.jar:4.2.2.RELEASE]
+	at org.springframework.batch.core.step.tasklet.TaskletStep$2.doInChunkContext(TaskletStep.java:271) [spring-batch-core-3.0.5.RELEASE.jar:3.0.5.RELEASE]
+	at org.springframework.batch.core.scope.context.StepContextRepeatCallback.doInIteration(StepContextRepeatCallback.java:81) [spring-batch-core-3.0.5.RELEASE.jar:3.0.5.RELEASE]
+	at org.springframework.batch.repeat.support.RepeatTemplate.getNextResult(RepeatTemplate.java:374) [spring-batch-infrastructure-3.0.5.RELEASE.jar:3.0.5.RELEASE]
+	at org.springframework.batch.repeat.support.RepeatTemplate.executeInternal(RepeatTemplate.java:215) [spring-batch-infrastructure-3.0.5.RELEASE.jar:3.0.5.RELEASE]
+	at org.springframework.batch.repeat.support.RepeatTemplate.iterate(RepeatTemplate.java:144) [spring-batch-infrastructure-3.0.5.RELEASE.jar:3.0.5.RELEASE]
+	at org.springframework.batch.core.step.tasklet.TaskletStep.doExecute(TaskletStep.java:257) [spring-batch-core-3.0.5.RELEASE.jar:3.0.5.RELEASE]
+	at org.springframework.batch.core.step.AbstractStep.execute(AbstractStep.java:200) [spring-batch-core-3.0.5.RELEASE.jar:3.0.5.RELEASE]
+	at org.springframework.batch.core.job.SimpleStepHandler.handleStep(SimpleStepHandler.java:148) [spring-batch-core-3.0.5.RELEASE.jar:3.0.5.RELEASE]
+	at org.springframework.batch.core.job.flow.JobFlowExecutor.executeStep(JobFlowExecutor.java:64) [spring-batch-core-3.0.5.RELEASE.jar:3.0.5.RELEASE]
+	at org.springframework.batch.core.job.flow.support.state.StepState.handle(StepState.java:67) [spring-batch-core-3.0.5.RELEASE.jar:3.0.5.RELEASE]
+	at org.springframework.batch.core.job.flow.support.SimpleFlow.resume(SimpleFlow.java:169) [spring-batch-core-3.0.5.RELEASE.jar:3.0.5.RELEASE]
+	at org.springframework.batch.core.job.flow.support.SimpleFlow.start(SimpleFlow.java:144) [spring-batch-core-3.0.5.RELEASE.jar:3.0.5.RELEASE]
+	at org.springframework.batch.core.job.flow.FlowJob.doExecute(FlowJob.java:134) [spring-batch-core-3.0.5.RELEASE.jar:3.0.5.RELEASE]
+	at org.springframework.batch.core.job.AbstractJob.execute(AbstractJob.java:306) [spring-batch-core-3.0.5.RELEASE.jar:3.0.5.RELEASE]
+	at org.springframework.batch.core.launch.support.SimpleJobLauncher$1.run(SimpleJobLauncher.java:135) [spring-batch-core-3.0.5.RELEASE.jar:3.0.5.RELEASE]
+	at org.springframework.core.task.SyncTaskExecutor.execute(SyncTaskExecutor.java:50) [spring-core-4.2.2.RELEASE.jar:4.2.2.RELEASE]
+	at org.springframework.batch.core.launch.support.SimpleJobLauncher.run(SimpleJobLauncher.java:128) [spring-batch-core-3.0.5.RELEASE.jar:3.0.5.RELEASE]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:1.8.0_20]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:1.8.0_20]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:1.8.0_20]
+	at java.lang.reflect.Method.invoke(Method.java:483) ~[na:1.8.0_20]
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:302) [spring-aop-4.2.2.RELEASE.jar:4.2.2.RELEASE]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:190) [spring-aop-4.2.2.RELEASE.jar:4.2.2.RELEASE]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:157) [spring-aop-4.2.2.RELEASE.jar:4.2.2.RELEASE]
+	at org.springframework.batch.core.configuration.annotation.SimpleBatchConfiguration$PassthruAdvice.invoke(SimpleBatchConfiguration.java:127) [spring-batch-core-3.0.5.RELEASE.jar:3.0.5.RELEASE]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179) [spring-aop-4.2.2.RELEASE.jar:4.2.2.RELEASE]
+	at org.springframework.aop.framework.JdkDynamicAopProxy.invoke(JdkDynamicAopProxy.java:207) [spring-aop-4.2.2.RELEASE.jar:4.2.2.RELEASE]
+	at com.sun.proxy.$Proxy52.run(Unknown Source) [na:na]
+	at org.springframework.batch.integration.launch.JobLaunchingMessageHandler.launch(JobLaunchingMessageHandler.java:50) [spring-batch-integration-3.0.5.RELEASE.jar:3.0.5.RELEASE]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:1.8.0_20]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:1.8.0_20]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:1.8.0_20]
+	at java.lang.reflect.Method.invoke(Method.java:483) ~[na:1.8.0_20]
+	at org.springframework.expression.spel.support.ReflectiveMethodExecutor.execute(ReflectiveMethodExecutor.java:113) [spring-expression-4.2.2.RELEASE.jar:4.2.2.RELEASE]
+	at org.springframework.expression.spel.ast.MethodReference.getValueInternal(MethodReference.java:102) [spring-expression-4.2.2.RELEASE.jar:4.2.2.RELEASE]
+	at org.springframework.expression.spel.ast.MethodReference.access$000(MethodReference.java:49) [spring-expression-4.2.2.RELEASE.jar:4.2.2.RELEASE]
+	at org.springframework.expression.spel.ast.MethodReference$MethodValueRef.getValue(MethodReference.java:342) [spring-expression-4.2.2.RELEASE.jar:4.2.2.RELEASE]
+	at org.springframework.expression.spel.ast.CompoundExpression.getValueInternal(CompoundExpression.java:88) [spring-expression-4.2.2.RELEASE.jar:4.2.2.RELEASE]
+	at org.springframework.expression.spel.ast.SpelNodeImpl.getTypedValue(SpelNodeImpl.java:131) [spring-expression-4.2.2.RELEASE.jar:4.2.2.RELEASE]
+	at org.springframework.expression.spel.standard.SpelExpression.getValue(SpelExpression.java:330) [spring-expression-4.2.2.RELEASE.jar:4.2.2.RELEASE]
+	at org.springframework.integration.util.AbstractExpressionEvaluator.evaluateExpression(AbstractExpressionEvaluator.java:166) [spring-integration-core-4.2.1.RELEASE.jar:na]
+	at org.springframework.integration.util.MessagingMethodInvokerHelper.processInternal(MessagingMethodInvokerHelper.java:317) [spring-integration-core-4.2.1.RELEASE.jar:na]
+	at org.springframework.integration.util.MessagingMethodInvokerHelper.process(MessagingMethodInvokerHelper.java:155) [spring-integration-core-4.2.1.RELEASE.jar:na]
+	at org.springframework.integration.handler.MethodInvokingMessageProcessor.processMessage(MethodInvokingMessageProcessor.java:93) [spring-integration-core-4.2.1.RELEASE.jar:na]
+	at org.springframework.integration.handler.ServiceActivatingHandler.handleRequestMessage(ServiceActivatingHandler.java:89) [spring-integration-core-4.2.1.RELEASE.jar:na]
+	at org.springframework.integration.handler.AbstractReplyProducingMessageHandler.handleMessageInternal(AbstractReplyProducingMessageHandler.java:99) [spring-integration-core-4.2.1.RELEASE.jar:na]
+	at org.springframework.integration.handler.AbstractMessageHandler.handleMessage(AbstractMessageHandler.java:127) [spring-integration-core-4.2.1.RELEASE.jar:na]
+	at org.springframework.integration.dispatcher.AbstractDispatcher.tryOptimizedDispatch(AbstractDispatcher.java:116) [spring-integration-core-4.2.1.RELEASE.jar:na]
+	at org.springframework.integration.dispatcher.UnicastingDispatcher.doDispatch(UnicastingDispatcher.java:147) [spring-integration-core-4.2.1.RELEASE.jar:na]
+	at org.springframework.integration.dispatcher.UnicastingDispatcher.dispatch(UnicastingDispatcher.java:120) [spring-integration-core-4.2.1.RELEASE.jar:na]
+	at org.springframework.integration.channel.AbstractSubscribableChannel.doSend(AbstractSubscribableChannel.java:77) [spring-integration-core-4.2.1.RELEASE.jar:na]
+	at org.springframework.integration.channel.AbstractMessageChannel.send(AbstractMessageChannel.java:442) [spring-integration-core-4.2.1.RELEASE.jar:na]
+	at org.springframework.integration.channel.AbstractMessageChannel.send(AbstractMessageChannel.java:392) [spring-integration-core-4.2.1.RELEASE.jar:na]
+	at org.springframework.messaging.core.GenericMessagingTemplate.doSend(GenericMessagingTemplate.java:115) [spring-messaging-4.2.2.RELEASE.jar:4.2.2.RELEASE]
+	at org.springframework.messaging.core.GenericMessagingTemplate.doSend(GenericMessagingTemplate.java:45) [spring-messaging-4.2.2.RELEASE.jar:4.2.2.RELEASE]
+	at org.springframework.messaging.core.AbstractMessageSendingTemplate.send(AbstractMessageSendingTemplate.java:105) [spring-messaging-4.2.2.RELEASE.jar:4.2.2.RELEASE]
+	at org.springframework.integration.handler.AbstractMessageProducingHandler.sendOutput(AbstractMessageProducingHandler.java:231) [spring-integration-core-4.2.1.RELEASE.jar:na]
+	at org.springframework.integration.handler.AbstractMessageProducingHandler.produceOutput(AbstractMessageProducingHandler.java:154) [spring-integration-core-4.2.1.RELEASE.jar:na]
+	at org.springframework.integration.handler.AbstractMessageProducingHandler.sendOutputs(AbstractMessageProducingHandler.java:102) [spring-integration-core-4.2.1.RELEASE.jar:na]
+	at org.springframework.integration.handler.AbstractReplyProducingMessageHandler.handleMessageInternal(AbstractReplyProducingMessageHandler.java:105) [spring-integration-core-4.2.1.RELEASE.jar:na]
+	at org.springframework.integration.handler.AbstractMessageHandler.handleMessage(AbstractMessageHandler.java:127) [spring-integration-core-4.2.1.RELEASE.jar:na]
+	at org.springframework.integration.dispatcher.AbstractDispatcher.tryOptimizedDispatch(AbstractDispatcher.java:116) [spring-integration-core-4.2.1.RELEASE.jar:na]
+	at org.springframework.integration.dispatcher.UnicastingDispatcher.doDispatch(UnicastingDispatcher.java:147) [spring-integration-core-4.2.1.RELEASE.jar:na]
+	at org.springframework.integration.dispatcher.UnicastingDispatcher.dispatch(UnicastingDispatcher.java:120) [spring-integration-core-4.2.1.RELEASE.jar:na]
+	at org.springframework.integration.channel.AbstractSubscribableChannel.doSend(AbstractSubscribableChannel.java:77) [spring-integration-core-4.2.1.RELEASE.jar:na]
+	at org.springframework.integration.channel.AbstractMessageChannel.send(AbstractMessageChannel.java:442) [spring-integration-core-4.2.1.RELEASE.jar:na]
+	at org.springframework.integration.channel.AbstractMessageChannel.send(AbstractMessageChannel.java:392) [spring-integration-core-4.2.1.RELEASE.jar:na]
+	at org.springframework.messaging.core.GenericMessagingTemplate.doSend(GenericMessagingTemplate.java:115) [spring-messaging-4.2.2.RELEASE.jar:4.2.2.RELEASE]
+	at org.springframework.messaging.core.GenericMessagingTemplate.doSend(GenericMessagingTemplate.java:45) [spring-messaging-4.2.2.RELEASE.jar:4.2.2.RELEASE]
+	at org.springframework.messaging.core.AbstractMessageSendingTemplate.send(AbstractMessageSendingTemplate.java:105) [spring-messaging-4.2.2.RELEASE.jar:4.2.2.RELEASE]
+	at org.springframework.integration.handler.AbstractMessageProducingHandler.sendOutput(AbstractMessageProducingHandler.java:231) [spring-integration-core-4.2.1.RELEASE.jar:na]
+	at org.springframework.integration.handler.AbstractMessageProducingHandler.produceOutput(AbstractMessageProducingHandler.java:154) [spring-integration-core-4.2.1.RELEASE.jar:na]
+	at org.springframework.integration.handler.AbstractMessageProducingHandler.sendOutputs(AbstractMessageProducingHandler.java:102) [spring-integration-core-4.2.1.RELEASE.jar:na]
+	at org.springframework.integration.handler.AbstractReplyProducingMessageHandler.handleMessageInternal(AbstractReplyProducingMessageHandler.java:105) [spring-integration-core-4.2.1.RELEASE.jar:na]
+	at org.springframework.integration.handler.AbstractMessageHandler.handleMessage(AbstractMessageHandler.java:127) [spring-integration-core-4.2.1.RELEASE.jar:na]
+	at org.springframework.integration.dispatcher.AbstractDispatcher.tryOptimizedDispatch(AbstractDispatcher.java:116) [spring-integration-core-4.2.1.RELEASE.jar:na]
+	at org.springframework.integration.dispatcher.UnicastingDispatcher.doDispatch(UnicastingDispatcher.java:147) [spring-integration-core-4.2.1.RELEASE.jar:na]
+	at org.springframework.integration.dispatcher.UnicastingDispatcher.dispatch(UnicastingDispatcher.java:120) [spring-integration-core-4.2.1.RELEASE.jar:na]
+	at org.springframework.integration.channel.AbstractSubscribableChannel.doSend(AbstractSubscribableChannel.java:77) [spring-integration-core-4.2.1.RELEASE.jar:na]
+	at org.springframework.integration.channel.AbstractMessageChannel.send(AbstractMessageChannel.java:442) [spring-integration-core-4.2.1.RELEASE.jar:na]
+	at org.springframework.integration.channel.AbstractMessageChannel.send(AbstractMessageChannel.java:392) [spring-integration-core-4.2.1.RELEASE.jar:na]
+	at org.springframework.messaging.core.GenericMessagingTemplate.doSend(GenericMessagingTemplate.java:115) [spring-messaging-4.2.2.RELEASE.jar:4.2.2.RELEASE]
+	at org.springframework.messaging.core.GenericMessagingTemplate.doSend(GenericMessagingTemplate.java:45) [spring-messaging-4.2.2.RELEASE.jar:4.2.2.RELEASE]
+	at org.springframework.messaging.core.AbstractMessageSendingTemplate.send(AbstractMessageSendingTemplate.java:105) [spring-messaging-4.2.2.RELEASE.jar:4.2.2.RELEASE]
+	at org.springframework.integration.endpoint.MessageProducerSupport.sendMessage(MessageProducerSupport.java:105) [spring-integration-core-4.2.1.RELEASE.jar:na]
+	at org.springframework.integration.amqp.inbound.AmqpInboundChannelAdapter.access$400(AmqpInboundChannelAdapter.java:45) [spring-integration-amqp-4.2.1.RELEASE.jar:na]
+	at org.springframework.integration.amqp.inbound.AmqpInboundChannelAdapter$1.onMessage(AmqpInboundChannelAdapter.java:93) [spring-integration-amqp-4.2.1.RELEASE.jar:na]
+	at org.springframework.amqp.rabbit.listener.AbstractMessageListenerContainer.doInvokeListener(AbstractMessageListenerContainer.java:757) [spring-rabbit-1.5.1.RELEASE.jar:na]
+	at org.springframework.amqp.rabbit.listener.AbstractMessageListenerContainer.invokeListener(AbstractMessageListenerContainer.java:680) [spring-rabbit-1.5.1.RELEASE.jar:na]
+	at org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer.access$001(SimpleMessageListenerContainer.java:93) [spring-rabbit-1.5.1.RELEASE.jar:na]
+	at org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer$1.invokeListener(SimpleMessageListenerContainer.java:183) [spring-rabbit-1.5.1.RELEASE.jar:na]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:1.8.0_20]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:1.8.0_20]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:1.8.0_20]
+	at java.lang.reflect.Method.invoke(Method.java:483) ~[na:1.8.0_20]
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:302) [spring-aop-4.2.2.RELEASE.jar:4.2.2.RELEASE]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:190) [spring-aop-4.2.2.RELEASE.jar:4.2.2.RELEASE]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:157) [spring-aop-4.2.2.RELEASE.jar:4.2.2.RELEASE]
+	at org.springframework.retry.interceptor.RetryOperationsInterceptor$1.doWithRetry(RetryOperationsInterceptor.java:74) [spring-retry-1.1.2.RELEASE.jar:na]
+	at org.springframework.retry.support.RetryTemplate.doExecute(RetryTemplate.java:263) [spring-retry-1.1.2.RELEASE.jar:na]
+	at org.springframework.retry.support.RetryTemplate.execute(RetryTemplate.java:168) [spring-retry-1.1.2.RELEASE.jar:na]
+	at org.springframework.retry.interceptor.RetryOperationsInterceptor.invoke(RetryOperationsInterceptor.java:98) [spring-retry-1.1.2.RELEASE.jar:na]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179) [spring-aop-4.2.2.RELEASE.jar:4.2.2.RELEASE]
+	at org.springframework.aop.framework.JdkDynamicAopProxy.invoke(JdkDynamicAopProxy.java:207) [spring-aop-4.2.2.RELEASE.jar:4.2.2.RELEASE]
+	at com.sun.proxy.$Proxy93.invokeListener(Unknown Source) [na:na]
+	at org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer.invokeListener(SimpleMessageListenerContainer.java:1345) [spring-rabbit-1.5.1.RELEASE.jar:na]
+	at org.springframework.amqp.rabbit.listener.AbstractMessageListenerContainer.executeListener(AbstractMessageListenerContainer.java:661) [spring-rabbit-1.5.1.RELEASE.jar:na]
+	at org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer.doReceiveAndExecute(SimpleMessageListenerContainer.java:1096) [spring-rabbit-1.5.1.RELEASE.jar:na]
+	at org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer.receiveAndExecute(SimpleMessageListenerContainer.java:1080) [spring-rabbit-1.5.1.RELEASE.jar:na]
+	at org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer.access$800(SimpleMessageListenerContainer.java:93) [spring-rabbit-1.5.1.RELEASE.jar:na]
+	at org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer$AsyncMessageProcessingConsumer.run(SimpleMessageListenerContainer.java:1190) [spring-rabbit-1.5.1.RELEASE.jar:na]
+	at java.lang.Thread.run(Thread.java:745) [na:1.8.0_20]
+Caused by: java.sql.SQLTransactionRollbackException: transaction rollback: serialization failure
+	at org.hsqldb.jdbc.JDBCUtil.sqlException(Unknown Source) ~[hsqldb-2.3.3.jar:2.3.3]
+	at org.hsqldb.jdbc.JDBCUtil.sqlException(Unknown Source) ~[hsqldb-2.3.3.jar:2.3.3]
+	at org.hsqldb.jdbc.JDBCPreparedStatement.fetchResult(Unknown Source) ~[hsqldb-2.3.3.jar:2.3.3]
+	at org.hsqldb.jdbc.JDBCPreparedStatement.executeUpdate(Unknown Source) ~[hsqldb-2.3.3.jar:2.3.3]
+	at org.springframework.jdbc.core.JdbcTemplate$2.doInPreparedStatement(JdbcTemplate.java:873) ~[spring-jdbc-4.2.2.RELEASE.jar:4.2.2.RELEASE]
+	at org.springframework.jdbc.core.JdbcTemplate$2.doInPreparedStatement(JdbcTemplate.java:866) ~[spring-jdbc-4.2.2.RELEASE.jar:4.2.2.RELEASE]
+	at org.springframework.jdbc.core.JdbcTemplate.execute(JdbcTemplate.java:629) ~[spring-jdbc-4.2.2.RELEASE.jar:4.2.2.RELEASE]
+	... 142 common frames omitted
+2015-11-02T14:50:17-0500 1.3.0.SNAP ERROR xdbus.job:eee-1 step.AbstractStep - Encountered an error executing step helloSpringXDStep in job eee
+org.springframework.batch.core.step.FatalStepExecutionException: JobRepository failure forcing rollback
+	at org.springframework.batch.core.step.tasklet.TaskletStep$ChunkTransactionCallback.doInTransaction(TaskletStep.java:463) ~[spring-batch-core-3.0.5.RELEASE.jar:3.0.5.RELEASE]
+	at org.springframework.batch.core.step.tasklet.TaskletStep$ChunkTransactionCallback.doInTransaction(TaskletStep.java:330) ~[spring-batch-core-3.0.5.RELEASE.jar:3.0.5.RELEASE]
+	at org.springframework.transaction.support.TransactionTemplate.execute(TransactionTemplate.java:133) ~[spring-tx-4.2.2.RELEASE.jar:4.2.2.RELEASE]
+	at org.springframework.batch.core.step.tasklet.TaskletStep$2.doInChunkContext(TaskletStep.java:271) ~[spring-batch-core-3.0.5.RELEASE.jar:3.0.5.RELEASE]
+	at org.springframework.batch.core.scope.context.StepContextRepeatCallback.doInIteration(StepContextRepeatCallback.java:81) ~[spring-batch-core-3.0.5.RELEASE.jar:3.0.5.RELEASE]
+	at org.springframework.batch.repeat.support.RepeatTemplate.getNextResult(RepeatTemplate.java:374) ~[spring-batch-infrastructure-3.0.5.RELEASE.jar:3.0.5.RELEASE]
+	at org.springframework.batch.repeat.support.RepeatTemplate.executeInternal(RepeatTemplate.java:215) ~[spring-batch-infrastructure-3.0.5.RELEASE.jar:3.0.5.RELEASE]
+	at org.springframework.batch.repeat.support.RepeatTemplate.iterate(RepeatTemplate.java:144) ~[spring-batch-infrastructure-3.0.5.RELEASE.jar:3.0.5.RELEASE]
+	at org.springframework.batch.core.step.tasklet.TaskletStep.doExecute(TaskletStep.java:257) ~[spring-batch-core-3.0.5.RELEASE.jar:3.0.5.RELEASE]
+	at org.springframework.batch.core.step.AbstractStep.execute(AbstractStep.java:200) ~[spring-batch-core-3.0.5.RELEASE.jar:3.0.5.RELEASE]
+	at org.springframework.batch.core.job.SimpleStepHandler.handleStep(SimpleStepHandler.java:148) [spring-batch-core-3.0.5.RELEASE.jar:3.0.5.RELEASE]
+	at org.springframework.batch.core.job.flow.JobFlowExecutor.executeStep(JobFlowExecutor.java:64) [spring-batch-core-3.0.5.RELEASE.jar:3.0.5.RELEASE]
+	at org.springframework.batch.core.job.flow.support.state.StepState.handle(StepState.java:67) [spring-batch-core-3.0.5.RELEASE.jar:3.0.5.RELEASE]
+	at org.springframework.batch.core.job.flow.support.SimpleFlow.resume(SimpleFlow.java:169) [spring-batch-core-3.0.5.RELEASE.jar:3.0.5.RELEASE]
+	at org.springframework.batch.core.job.flow.support.SimpleFlow.start(SimpleFlow.java:144) [spring-batch-core-3.0.5.RELEASE.jar:3.0.5.RELEASE]
+	at org.springframework.batch.core.job.flow.FlowJob.doExecute(FlowJob.java:134) [spring-batch-core-3.0.5.RELEASE.jar:3.0.5.RELEASE]
+	at org.springframework.batch.core.job.AbstractJob.execute(AbstractJob.java:306) [spring-batch-core-3.0.5.RELEASE.jar:3.0.5.RELEASE]
+	at org.springframework.batch.core.launch.support.SimpleJobLauncher$1.run(SimpleJobLauncher.java:135) [spring-batch-core-3.0.5.RELEASE.jar:3.0.5.RELEASE]
+	at org.springframework.core.task.SyncTaskExecutor.execute(SyncTaskExecutor.java:50) [spring-core-4.2.2.RELEASE.jar:4.2.2.RELEASE]
+	at org.springframework.batch.core.launch.support.SimpleJobLauncher.run(SimpleJobLauncher.java:128) [spring-batch-core-3.0.5.RELEASE.jar:3.0.5.RELEASE]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:1.8.0_20]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:1.8.0_20]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:1.8.0_20]
+	at java.lang.reflect.Method.invoke(Method.java:483) ~[na:1.8.0_20]
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:302) [spring-aop-4.2.2.RELEASE.jar:4.2.2.RELEASE]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:190) [spring-aop-4.2.2.RELEASE.jar:4.2.2.RELEASE]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:157) [spring-aop-4.2.2.RELEASE.jar:4.2.2.RELEASE]
+	at org.springframework.batch.core.configuration.annotation.SimpleBatchConfiguration$PassthruAdvice.invoke(SimpleBatchConfiguration.java:127) [spring-batch-core-3.0.5.RELEASE.jar:3.0.5.RELEASE]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179) [spring-aop-4.2.2.RELEASE.jar:4.2.2.RELEASE]
+	at org.springframework.aop.framework.JdkDynamicAopProxy.invoke(JdkDynamicAopProxy.java:207) [spring-aop-4.2.2.RELEASE.jar:4.2.2.RELEASE]
+	at com.sun.proxy.$Proxy52.run(Unknown Source) [na:na]
+	at org.springframework.batch.integration.launch.JobLaunchingMessageHandler.launch(JobLaunchingMessageHandler.java:50) [spring-batch-integration-3.0.5.RELEASE.jar:3.0.5.RELEASE]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:1.8.0_20]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:1.8.0_20]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:1.8.0_20]
+	at java.lang.reflect.Method.invoke(Method.java:483) ~[na:1.8.0_20]
+	at org.springframework.expression.spel.support.ReflectiveMethodExecutor.execute(ReflectiveMethodExecutor.java:113) [spring-expression-4.2.2.RELEASE.jar:4.2.2.RELEASE]
+	at org.springframework.expression.spel.ast.MethodReference.getValueInternal(MethodReference.java:102) [spring-expression-4.2.2.RELEASE.jar:4.2.2.RELEASE]
+	at org.springframework.expression.spel.ast.MethodReference.access$000(MethodReference.java:49) [spring-expression-4.2.2.RELEASE.jar:4.2.2.RELEASE]
+	at org.springframework.expression.spel.ast.MethodReference$MethodValueRef.getValue(MethodReference.java:342) [spring-expression-4.2.2.RELEASE.jar:4.2.2.RELEASE]
+	at org.springframework.expression.spel.ast.CompoundExpression.getValueInternal(CompoundExpression.java:88) [spring-expression-4.2.2.RELEASE.jar:4.2.2.RELEASE]
+	at org.springframework.expression.spel.ast.SpelNodeImpl.getTypedValue(SpelNodeImpl.java:131) [spring-expression-4.2.2.RELEASE.jar:4.2.2.RELEASE]
+	at org.springframework.expression.spel.standard.SpelExpression.getValue(SpelExpression.java:330) [spring-expression-4.2.2.RELEASE.jar:4.2.2.RELEASE]
+	at org.springframework.integration.util.AbstractExpressionEvaluator.evaluateExpression(AbstractExpressionEvaluator.java:166) [spring-integration-core-4.2.1.RELEASE.jar:na]
+	at org.springframework.integration.util.MessagingMethodInvokerHelper.processInternal(MessagingMethodInvokerHelper.java:317) [spring-integration-core-4.2.1.RELEASE.jar:na]
+	at org.springframework.integration.util.MessagingMethodInvokerHelper.process(MessagingMethodInvokerHelper.java:155) [spring-integration-core-4.2.1.RELEASE.jar:na]
+	at org.springframework.integration.handler.MethodInvokingMessageProcessor.processMessage(MethodInvokingMessageProcessor.java:93) [spring-integration-core-4.2.1.RELEASE.jar:na]
+	at org.springframework.integration.handler.ServiceActivatingHandler.handleRequestMessage(ServiceActivatingHandler.java:89) [spring-integration-core-4.2.1.RELEASE.jar:na]
+	at org.springframework.integration.handler.AbstractReplyProducingMessageHandler.handleMessageInternal(AbstractReplyProducingMessageHandler.java:99) [spring-integration-core-4.2.1.RELEASE.jar:na]
+	at org.springframework.integration.handler.AbstractMessageHandler.handleMessage(AbstractMessageHandler.java:127) [spring-integration-core-4.2.1.RELEASE.jar:na]
+	at org.springframework.integration.dispatcher.AbstractDispatcher.tryOptimizedDispatch(AbstractDispatcher.java:116) [spring-integration-core-4.2.1.RELEASE.jar:na]
+	at org.springframework.integration.dispatcher.UnicastingDispatcher.doDispatch(UnicastingDispatcher.java:147) [spring-integration-core-4.2.1.RELEASE.jar:na]
+	at org.springframework.integration.dispatcher.UnicastingDispatcher.dispatch(UnicastingDispatcher.java:120) [spring-integration-core-4.2.1.RELEASE.jar:na]
+	at org.springframework.integration.channel.AbstractSubscribableChannel.doSend(AbstractSubscribableChannel.java:77) [spring-integration-core-4.2.1.RELEASE.jar:na]
+	at org.springframework.integration.channel.AbstractMessageChannel.send(AbstractMessageChannel.java:442) [spring-integration-core-4.2.1.RELEASE.jar:na]
+	at org.springframework.integration.channel.AbstractMessageChannel.send(AbstractMessageChannel.java:392) [spring-integration-core-4.2.1.RELEASE.jar:na]
+	at org.springframework.messaging.core.GenericMessagingTemplate.doSend(GenericMessagingTemplate.java:115) [spring-messaging-4.2.2.RELEASE.jar:4.2.2.RELEASE]
+	at org.springframework.messaging.core.GenericMessagingTemplate.doSend(GenericMessagingTemplate.java:45) [spring-messaging-4.2.2.RELEASE.jar:4.2.2.RELEASE]
+	at org.springframework.messaging.core.AbstractMessageSendingTemplate.send(AbstractMessageSendingTemplate.java:105) [spring-messaging-4.2.2.RELEASE.jar:4.2.2.RELEASE]
+	at org.springframework.integration.handler.AbstractMessageProducingHandler.sendOutput(AbstractMessageProducingHandler.",,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+Fix composed job error message,XD-3683,66568,Bug,Done,XD,Spring XD,software,mark.pollack,"This JIRA project is closed.
+
+Spring XD is a unified, distributed, and extensible system for data ingestion, real time analytics, batch processing, and data export. The project's goal is to simplify the development of big data applications.",https://github.com/spring-projects/spring-xd,Minor,Complete,grenfro,sabby,sabby,11/2/2015 19:27,11/11/2015 18:57,10/29/2020 16:49,11/11/2015 18:57,,,1.3 GA,,,,,,0,,,,"As a user, I'm trying to compose a job just with one definition; however, I'm getting the following error message, which could be misinterpreted.
+
+{code}
+xd:>job create salsa --definition timestampfile
+Successfully created job 'salsa'
+xd:>job create foo --definition ""salsa || salsa""
+Successfully created job 'foo'
+xd:>job create foo222 --definition ""salsa""
+Command failed org.springframework.xd.rest.client.impl.SpringXDException: Could not find module with name 'salsa' and type 'job'
+{code}",,,,,,,,,,,,,,,,1,157161600,XD-3477,31:41.0,9.22E+18,TRUE,sabby(sabby),,,https://github.com/spring-projects/spring-xd/pull/1841,0|i08vin:,9.22E+18,9.22E+18,,,Sprint 61,,,,"06/Nov/15 4:31 PM;grenfro;There are 2 test scenarios: one where the composed job is deployed and the other where the composed job is not deployed.
+in my test cases I always deployed the composed job and the bug fix I put in place would work.  However if the composed job was undeployed the fix would not work.
+
+",,,,,,,,,,,,
+Multiple module instances produces duplicate messages ,XD-3673,66557,Bug,Done,XD,Spring XD,software,mark.pollack,"This JIRA project is closed.
+
+Spring XD is a unified, distributed, and extensible system for data ingestion, real time analytics, batch processing, and data export. The project's goal is to simplify the development of big data applications.",https://github.com/spring-projects/spring-xd,Minor,Complete,mbogoevici,sabby,sabby,11/2/2015 16:59,11/17/2015 20:29,10/29/2020 16:26,11/17/2015 20:29,,,1.3 GA,,,,,,0,,,,"As a follow-up from [XD-3613|https://jira.spring.io/browse/XD-3629], we would want to fix this experience for Kafka message bus.",,,,,,,,,,,,,,,"Update documentation the difference between the message bus implementations here, ie that on Redis you should only deploy one instance consuming from a tap or topic.",5,157420800,XD-2356,,9.22E+18,TRUE,mbogoevici(mbogoevici),,,https://github.com/spring-projects/spring-xd/pull/1857,0|hzzyaa:,9.22E+18,9.22E+18,,,Sprint 62,,,,,,,,,,,,,,,,
+CF SPI REST calls are not working ,XD-3667,66530,Bug,Done,XD,Spring XD,software,mark.pollack,"This JIRA project is closed.
+
+Spring XD is a unified, distributed, and extensible system for data ingestion, real time analytics, batch processing, and data export. The project's goal is to simplify the development of big data applications.",https://github.com/spring-projects/spring-xd,Minor,Invalid,,sabby,sabby,10/30/2015 23:09,11/24/2015 14:47,10/29/2020 16:49,11/24/2015 14:47,,,,,,,,,0,,,,"As a developer, I'd like to troubleshoot and fix {{root}} level access over CF SPI REST calls; they're broke at the moment. 
+
+Access for following calls fail:
+
+{code}
+
+href: ""https://s-c-dataflow-admin.cfapps.pez.pivotal.io:80/streams""
+href: ""https://s-c-dataflow-admin.cfapps.pez.pivotal.io:80/tasks""
+href: ""https://s-c-dataflow-admin.cfapps.pez.pivotal.io:80/metrics/counters""
+href: ""https://s-c-dataflow-admin.cfapps.pez.pivotal.io:80/metrics/counters/{name}"",
+href: ""https://s-c-dataflow-admin.cfapps.pez.pivotal.io:80/modules""
+href: ""https://s-c-dataflow-admin.cfapps.pez.pivotal.io:80/completions/stream{?start,detailLevel}"",
+{code}",,,,,,,,,,,,,,,REST calls resolve successfully and return expected results,,157680000,XD-3324,,9.22E+18,TRUE,sabby(sabby),,,,0|i08p9y:yzzzzzzzv,9.22E+18,9.22E+18,,,,,,,,,,,,,,,,,,,
+UI: Task deployment page is not loading,XD-3665,66528,Bug,Done,XD,Spring XD,software,mark.pollack,"This JIRA project is closed.
+
+Spring XD is a unified, distributed, and extensible system for data ingestion, real time analytics, batch processing, and data export. The project's goal is to simplify the development of big data applications.",https://github.com/spring-projects/spring-xd,Minor,Deferred,,sabby,sabby,10/30/2015 23:02,11/16/2015 16:11,10/29/2020 16:49,11/14/2015 16:22,,,,,,,,,0,,,,"As a user, I'm trying to load Task, Task Deployment, and Task Executions page, but I'm seeing an error {{(Error fetching data. Is the XD server running?)}} instead. ",,,,,,,,,,,,,,,REST API's are wired correctly and the pages load with expected results ,,156470400,XD-3199,,9.22E+18,TRUE,sabby(sabby),,,,0|hzzycy:,9.22E+18,9.22E+18,,,,,,,14/Nov/15 4:22 PM;sabby;Moved to GH. ,,,,,,,,,,,,
+UI: Job modules page wouldn't load,XD-3663,66526,Bug,Done,XD,Spring XD,software,mark.pollack,"This JIRA project is closed.
+
+Spring XD is a unified, distributed, and extensible system for data ingestion, real time analytics, batch processing, and data export. The project's goal is to simplify the development of big data applications.",https://github.com/spring-projects/spring-xd,Minor,Deferred,,sabby,sabby,10/30/2015 22:58,11/16/2015 16:10,10/29/2020 16:49,11/14/2015 16:22,,,,,,,,,0,,,,"As a user, I'm trying to load Job - Modules page in admin-ui, but I'm seeing exceptions in console and the page wouldn't load. 
+
+{code}
+Failed to convert value of type 'java.lang.String' to required type 'org.springframework.cloud.dataflow.core.ArtifactType'; nested exception is org.springframework.core.convert.ConversionFailedException: Failed to convert from type java.lang.String to type @org.springframework.web.bind.annotation.RequestParam org.springframework.cloud.dataflow.core.ArtifactType for value 'job'; nested exception is java.lang.IllegalArgumentException: No enum constant org.springframework.cloud.dataflow.core.ArtifactType.job
+{code}",,,,,,,,,,,,,,,,,156470400,XD-3199,,9.22E+18,TRUE,sabby(sabby),,,,0|hzzycq:,9.22E+18,9.22E+18,,,,,,,14/Nov/15 4:22 PM;sabby;Moved to GH. ,,,,,,,,,,,,

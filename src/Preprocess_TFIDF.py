@@ -99,7 +99,7 @@ def get_word_root_format(bug_text):
     return root_form_string
 
 def create_document_term_matrix(bug_text_list):
-    tfidf_vectorizer = TfidfVectorizer()
+    tfidf_vectorizer = TfidfVectorizer(max_features=10, min_df=5, max_df=0.7, stop_words=stopwords.words('english'))
     doc_term_matrix = tfidf_vectorizer.fit_transform(bug_text_list)
     return pd.DataFrame(doc_term_matrix.toarray(),columns=tfidf_vectorizer.get_feature_names())
 
