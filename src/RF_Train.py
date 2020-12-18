@@ -1,5 +1,4 @@
 import csv
-
 import pandas as pd
 import numpy as np
 from sklearn.model_selection import train_test_split
@@ -43,6 +42,8 @@ y_pred = regressorModel.predict(X_test)
 print('Mean Absolute Error:', metrics.mean_absolute_error(y_test, y_pred))
 print('Mean Squared Error:', metrics.mean_squared_error(y_test, y_pred))
 print('Root Mean Squared Error:', np.sqrt(metrics.mean_squared_error(y_test, y_pred)))
+
+###estimates story point for the dataset (used to train)
 
 ##read and estimate for new dataset
 dataset = pd.read_csv('./csv/5_tfidf_for_corpus.csv')
