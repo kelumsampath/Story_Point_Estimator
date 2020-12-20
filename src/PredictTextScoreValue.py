@@ -16,12 +16,12 @@ input_dataset = refactor_dataset(filtered_dataset)
 write_csv_file('./csv/Prediction/2_input_dataset.csv', input_dataset,'w')
 
 #write title bar of input dataset1
-write_csv_file('./csv/Prediction/3_input_dataset1.csv', [["Bug text", "Story point"]],'w')
+write_csv_file('./csv/Prediction/3_input_dataset1.csv', [["Bug text", "issue key" , "Story point"]],'w')
 
 #delete title bar from input_dataset
 del input_dataset[0]
 
-word_stem_string=[["Bug text root form", "Story point"]]
+word_stem_string=[["Bug text root form", "issue key", "Story point"]]
 
 #consider only one bug at once
 for bug in input_dataset:
@@ -31,22 +31,25 @@ for bug in input_dataset:
     write_csv_file('./csv/Prediction/3_input_dataset1.csv', [bug_set1], 'a')
 
     #get word list in root format (stem)
-    word_stem_string.append([get_word_root_format(bug_set1[0]),bug_set1[1]])
+    word_stem_string.append([get_word_root_format(bug_set1[0]),bug_set1[1],bug_set1[2]])
 
 #write title bar of input dataset1 root form
 write_csv_file('./csv/Prediction/4_input_dataset1_rootform.csv', word_stem_string,'w')
 
 
 bug_text_list=[]
+issue_key_list=[]
 story_point_list=[]
 for bug in word_stem_string:
     bug_text_list.append(bug[0])
-    story_point_list.append(bug[1])
+    issue_key_list.append(bug[1])
+    story_point_list.append(bug[2])
 
 #genarate and write tfidf values to corpus
 term_matrix=create_document_term_matrix(bug_text_list)
 
-#adding storypoint column to matrix
+#adding issue kely, storypoint column to matrix
+term_matrix["issue_key"]=issue_key_list
 term_matrix["story_point"]=story_point_list
 
 #remove first row( title values) and save as csv
@@ -60,7 +63,7 @@ tfidf_value_matrix = pd.read_csv('./csv/Prediction/5_tfidf_for_corpus.csv')
 number_of_columns = len(tfidf_value_matrix.columns)
 
 ###input fit to the model
-Existing_text_features=sc.fit_transform(tfidf_value_matrix.iloc[:, 0:number_of_columns-1].values)
+Existing_text_features=sc.fit_transform(tfidf_value_matrix.iloc[:, 0:number_of_columns-2].values)
 
 ###load saved model
 regressorModel = pickle.load(open('./Models/RandomForestModel.sav', 'rb'))
@@ -72,3 +75,8 @@ tfidf_value_matrix["test_score_round"]=np.rint(text_score)
 
 ##store predicted values
 write_csv_file('./csv/Prediction/6_estimated_new_text_score.csv',tfidf_value_matrix.to_numpy(),'w')
+
+##save resultant format
+resultant_text_score = tfidf_value_matrix[['issue_key','story_point','test_score', 'test_score_round']]
+write_csv_file('./csv/Prediction/7_resultant_new_text_score.csv',[['issue_key','previous_story_point','estimated_test_score', 'text_score_rounded']],'w')
+write_csv_file('./csv/Prediction/7_resultant_new_text_score.csv',resultant_text_score.to_numpy(),'a')

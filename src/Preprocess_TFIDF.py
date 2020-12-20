@@ -30,6 +30,7 @@ def filter_required_columns(dataset):
     description_column = 0
     assignee_column = 0
     comment_column = []
+    issueKey_column = 0
     storypoint_column = 0
     filtered_dataset = []
     for data_row in dataset:
@@ -40,6 +41,8 @@ def filter_required_columns(dataset):
                     summary_column = column_count
                 elif column_name == "Description":
                     description_column = column_count
+                elif column_name == "Issue key":
+                    issueKey_column = column_count
                 elif column_name == "Assignee":
                     assignee_column = column_count
                 elif "Story Points" in column_name:
@@ -47,13 +50,13 @@ def filter_required_columns(dataset):
                 elif column_name == "Comment":
                     comment_column.append(column_count)
                 column_count += 1
-        filtered_dataset.append([data_row[summary_column]] + [data_row[description_column]] + [data_row[assignee_column]] + [data_row[storypoint_column]] + [data_row[i] for i in comment_column])
+        filtered_dataset.append([data_row[summary_column]] + [data_row[description_column]] + [data_row[assignee_column]] + [data_row[issueKey_column]] + [data_row[storypoint_column]] + [data_row[i] for i in comment_column])
         line_count += 1
     return filtered_dataset
 
 #this funtion is to make dataset as input format (summary,description, number of devolopers, number of comments)
 def refactor_dataset(filtered_dataset):
-    input_processed_dataset = [["Summary", "Description", "Number of developers", "Number of comments", "Story point"]]
+    input_processed_dataset = [["Summary", "Description", "Number of developers", "Number of comments", "Issue key", "Story point"]]
     row_count = 0
     for row in filtered_dataset:
         single_entry = []
@@ -64,13 +67,14 @@ def refactor_dataset(filtered_dataset):
             if row[2] != "":
                 assignee_count = row[2].count(",") + 1
             single_entry.append(assignee_count)
-            comment_list = row[4: None]
+            comment_list = row[5: None]
             comment_count = 0
             for comment in comment_list:
                 if comment != '':
                     comment_count += 1
             single_entry.append(comment_count)
             single_entry.append(row[3])
+            single_entry.append(row[4])
             input_processed_dataset.append(single_entry)
         row_count += 1
     # remove garbage values
@@ -82,9 +86,9 @@ def refactor_dataset(filtered_dataset):
         input_data_row_count += 1
     return input_processed_dataset
 
-#extract summary&description as bug description and storypoint
+#extract summary&description as bug description , issue key and storypoint
 def get_dataset1(bug):
-    return [bug[0] + " " + bug[1], bug[4]]
+    return [bug[0] + " " + bug[1], bug[4],bug[5]]
 
 def get_word_root_format(bug_text):
     # tokenize text
@@ -117,37 +121,41 @@ input_dataset = refactor_dataset(filtered_dataset)
 write_csv_file('./csv/2_input_dataset.csv', input_dataset,'w')
 
 #write title bar of input dataset1
-write_csv_file('./csv/3_input_dataset1.csv', [["Bug text", "Story point"]],'w')
+write_csv_file('./csv/3_input_dataset1.csv', [["Bug text", "Issue key", "Story point"]],'w')
 
 #delete title bar from input_dataset
 del input_dataset[0]
 
-word_stem_string=[["Bug text root form", "Story point"]]
+word_stem_string=[["Bug text root form", "Issue key", "Story point"]]
 
 #consider only one bug at once
 for bug in input_dataset:
-    #get textual data from a bug-> bug set1=Bug text,Story point
+    #get textual data from a bug-> bug set1=Bug text,issue key, Story point
     bug_set1 = get_dataset1(bug)
     #write bug set1 in 3_input_dataset1.csv
     write_csv_file('./csv/3_input_dataset1.csv', [bug_set1], 'a')
 
     #get word list in root format (stem)
-    word_stem_string.append([get_word_root_format(bug_set1[0]),bug_set1[1]])
+    word_stem_string.append([get_word_root_format(bug_set1[0]),bug_set1[1],bug_set1[2]])
 
 #write title bar of input dataset1 root form
 write_csv_file('./csv/4_input_dataset1_rootform.csv', word_stem_string,'w')
 
 
 bug_text_list=[]
+issue_key_list=[]
 story_point_list=[]
+
 for bug in word_stem_string:
     bug_text_list.append(bug[0])
-    story_point_list.append(bug[1])
+    issue_key_list.append(bug[1])
+    story_point_list.append(bug[2])
 
 #genarate and write tfidf values to corpus
 term_matrix=create_document_term_matrix(bug_text_list)
 
-#adding storypoint column to matrix
+#adding issue key and storypoint column to matrix
+term_matrix["issue_key"]=issue_key_list
 term_matrix["story_point"]=story_point_list
 
 #remove first row( title values) and save as csv

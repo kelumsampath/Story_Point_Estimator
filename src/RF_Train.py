@@ -18,7 +18,7 @@ tfidf_value_matrix = pd.read_csv('./csv/5_tfidf_for_corpus.csv')
 number_of_columns = len(tfidf_value_matrix.columns)
 
 #tfidf value matrix(independent variables)
-X = tfidf_value_matrix.iloc[:, 0:number_of_columns-1].values
+X = tfidf_value_matrix.iloc[:, 0:number_of_columns-2].values
 #get story point list (dependent variable)
 y = tfidf_value_matrix.iloc[:, number_of_columns-1].values
 
@@ -48,7 +48,7 @@ print('Root Mean Squared Error:', np.sqrt(metrics.mean_squared_error(y_test, y_p
 ##read and estimate for new dataset
 dataset = pd.read_csv('./csv/5_tfidf_for_corpus.csv')
 
-Existing_text_features=sc.fit_transform(dataset.iloc[:, 0:number_of_columns-1].values)
+Existing_text_features=sc.fit_transform(dataset.iloc[:, 0:number_of_columns-2].values)
 
 text_score = regressorModel.predict(Existing_text_features)
 
