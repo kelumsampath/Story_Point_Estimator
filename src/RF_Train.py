@@ -58,3 +58,8 @@ dataset["test_score_round"]=np.rint(text_score)
 
 write_csv_file('./csv/6_estimated_new_text_score.csv',dataset.to_numpy(),'w')
 
+##save resultant format
+resultant_text_score = dataset[['issue_key','story_point','test_score', 'test_score_round']]
+write_csv_file('./csv/7_resultant_new_text_score.csv',[['issue_key','previous_story_point','estimated_test_score', 'text_score_rounded']],'w')
+write_csv_file('./csv/7_resultant_new_text_score.csv',resultant_text_score.to_numpy(),'a')
+
