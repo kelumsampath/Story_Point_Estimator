@@ -78,5 +78,15 @@ write_csv_file('./csv/Prediction/6_estimated_new_text_score.csv',tfidf_value_mat
 
 ##save resultant format
 resultant_text_score = tfidf_value_matrix[['issue_key','story_point','test_score', 'test_score_round']]
-write_csv_file('./csv/Prediction/7_resultant_new_text_score.csv',[['issue_key','previous_story_point','estimated_test_score', 'text_score_rounded']],'w')
+write_csv_file('./csv/Prediction/7_resultant_new_text_score.csv',[['Issue key','previous_story_point','estimated_test_score', 'text_score_rounded']],'w')
 write_csv_file('./csv/Prediction/7_resultant_new_text_score.csv',resultant_text_score.to_numpy(),'a')
+
+###refactor dataset 2 for linear regressor####
+input_dataset= pd.read_csv("./csv/Prediction/2_input_dataset.csv")
+estimated_text_score_data = pd.read_csv("./csv/Prediction/7_resultant_new_text_score.csv")
+
+##merge 2 dataset by issue key
+merged_dataset=pd.merge(input_dataset, estimated_text_score_data, on='Issue key')
+merged_dataset.to_csv('./csv/Prediction/8_merged_datset.csv', encoding='utf-8', mode='w', header=True, index=False)
+input_dataset2=merged_dataset[['Issue key','previous_story_point','estimated_test_score','Number of developers','Number of comments']]
+input_dataset2.to_csv('./csv/Prediction/9_input_datset2.csv', encoding='utf-8', mode='w', header=True, index=False)
